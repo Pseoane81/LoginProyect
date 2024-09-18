@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     loginForm.addEventListener("submit", function(event){
         event.preventDefault()
+        validateForm()
 
     })
 
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
         clearError(passwordError)
     })
 
-    confirmPasswordError.addEventListener("change", function(){
+    confirmPasswordInput.addEventListener("change", function(){
         clearError(confirmPasswordError)
     })
 
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function validateEmail(){
-       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
        const emailValue = emailInput.value.trim()
 
        if(!emailRegex.test(emailValue)){
@@ -73,12 +74,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showError (errorElement, message){
-        errorElement.innerHtml = message
+        errorElement.innerHTML = message
         errorElement.style.display = "block"   
     }
 
     function clearError (errorElement,){
-        errorElement.innerHtml = ""
+        errorElement.innerHTML = ""
         errorElement.style.display = "none"   
     }
 
