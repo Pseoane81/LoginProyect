@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const confirmPasswordInput = document.getElementById("confirmPassword")
     const emailError = document.getElementById("emailError")
     const passwordError = document.getElementById("passwordError")
-    const confirmPasswordError = document.getElementById("conformPasswordError")
+    const confirmPasswordError = document.getElementById("confirmPasswordError")
+    const showHide = document.getElementById("show-hide")
     
     loginForm.addEventListener("submit", function(event){
         event.preventDefault()
@@ -30,13 +31,23 @@ document.addEventListener("DOMContentLoaded", function() {
         clearError(confirmPasswordError)
     })
 
+    showHide.addEventListener("click", function(){
+        if(passwordInput.type == "password"){
+            passwordInput.type = "text"
+            confirmPasswordInput.type = "text"
+        }else{
+            passwordInput.type = "password"
+            confirmPasswordInput.type = "password"
+        }
+    })
+
     function validateForm(){
         const isvalidEmail = validateEmail()
         const isvalidPassword = validatePassword()
         const passwordMatch = validatePasswordMatch()
 
         if (isvalidEmail && isvalidPassword && passwordMatch){
-            // guardar en local storage
+            saveToLocalStorage()
             alert("Has ingresado con EXITO")
         }
     }
@@ -81,6 +92,20 @@ document.addEventListener("DOMContentLoaded", function() {
     function clearError (errorElement,){
         errorElement.innerHTML = ""
         errorElement.style.display = "none"   
+    }
+
+    function saveToLocalStorage(){
+        const emailValue = emailInput.value.trim()
+        localStorage.setItem("email", emailValue)
+        const body = bodyBuilderJson()
+        console.log(body)
+    }
+
+    function bodyBuilderJson(){
+        return {
+            "email" : emailInput.value,
+            "password" : passwordInput.value
+        }
     }
 
 
